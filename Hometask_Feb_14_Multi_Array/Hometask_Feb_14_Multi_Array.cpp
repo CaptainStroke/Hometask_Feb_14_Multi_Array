@@ -40,45 +40,80 @@
 //Определить сумму элементов, расположенных на главной диагонали, а также сумму элементов, 
 //расположенных на побочной диагонали.
 
+//#include <iostream>
+//#include <ctime>
+//#include <algorithm>
+//#include <Windows.h>
+//using namespace std;
+//int main()
+//{
+//	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+//	srand(time(NULL));
+//	const int H = 8;
+//	const int L = 8;
+//	int plane[H][L];
+//	int sum = 0;
+//	for (int y = 0; y < H; y++)
+//	{
+//		
+//		for (int x = 0; x < L; x++)
+//		{			
+//			plane[y][x] = rand() % 21;
+//			if (y == x)
+//			{
+//				sum += plane[y][x];
+//				SetConsoleTextAttribute(h, 7);//white letters
+//				cout << plane[y][x] << "\t";
+//			}
+//			else
+//			{
+//				SetConsoleTextAttribute(h, 0);//black letters
+//				cout << plane[y][x] << "\t";
+//			}
+//		}
+//		cout << "\n\n";
+//	}
+//	SetConsoleTextAttribute(h, 9);//blue letters
+//	cout << "Sum of main diagonal = " << sum;
+//	SetConsoleTextAttribute(h, 7);
+//}
+
+//3. Дан двумерный массив размерностью M х N, заполненный случайными числами из диапазона от - 10 до 10.
+//  Определить количество положительных, отрицательных и нулевых элементов.
+
 #include <iostream>
-#include <ctime>
-#include <algorithm>
 #include <Windows.h>
+#include <algorithm>
+#include <ctime>
 using namespace std;
 int main()
 {
 	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 	srand(time(NULL));
-	const int H = 8;
-	const int L = 8;
-	int plane[H][L];
-	int sum = 0;
-	for (int y = 0; y < H; y++)
+	const int M = 8;
+	const int N = 10;
+	int box[M][N];
+	int pos = 0;
+	int zero = 0;
+	int neg = 0;
+	for (int y = 0; y < M; y++)
 	{
-		
-		for (int x = 0; x < L; x++)
-		{			
-			plane[y][x] = rand() % 21;
-			if (y == x)
-			{
-				sum += plane[y][x];
-				SetConsoleTextAttribute(h, 7);//white letters
-				cout << plane[y][x] << "\t";
-			}
-			else
-			{
-				SetConsoleTextAttribute(h, 0);//black letters
-				cout << plane[y][x] << "\t";
-			}
+		for (int x = 0; x < N; x++)
+		{
+			box[y][x] = rand() % 21 - 10;
+			if (box[y][x] > 0) pos++, SetConsoleTextAttribute(h, 2), cout << box[y][x] << "\t";
+			else if (box[y][x] < 0) neg++, SetConsoleTextAttribute(h, 9), cout << box[y][x] << "\t";//blue letters;
+			else if (box[y][x] == 0) zero++, SetConsoleTextAttribute(h, 5), cout << box[y][x] << "\t";
 		}
-		cout << "\n\n";
+		cout << endl;
 	}
-	SetConsoleTextAttribute(h, 9);
-	cout << "Sum of main diagonal = " << sum;
 	SetConsoleTextAttribute(h, 7);
+	cout << "Positive number - " << pos << endl;
+	cout << "Nagative numbers - " << neg << endl;
+	cout << "Zeros - " << zero << endl;
+
 }
 
-//3. Дан двумерный массив размерностью M х N, заполненный случайными числами из диапазона от - 10 до 10. Определить количество положительных, отрицательных и нулевых элементов.
 //4. Дан двумерный массив размерностью M х N, заполненный случайными числами из диапазона от 0 до 20. Определить сумму по каждой строке и по каждому столбцу массива.
 //5. Заполнить массив M x N двузначными числами так, чтобы первая цифра указывала  номер строки, а вторая – номер столбца.
 //6. В двумерном массиве размерности M x N поменять местами чётные строки с нечётными.
