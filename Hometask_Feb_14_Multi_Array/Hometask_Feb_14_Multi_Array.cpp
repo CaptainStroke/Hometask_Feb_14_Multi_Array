@@ -1,42 +1,83 @@
 ﻿//1. Дан двумерный массив размерностью M х N, заполненный случайными числами из диапазона от 0 до 20. 
 //Определить сумму элементов массива, среднее арифметическое, минимальный и максимальный элемент.
 
+//#include <iostream>
+//#include <algorithm>
+//#include <ctime>
+//using namespace std;
+//int main()
+//{
+//	srand(time(NULL));
+//	const int M = 15;
+//	const int N = 8;
+//	int box[M][N];
+//	int max = 0;
+//	int min = 0;
+//	int sum = 0;
+//	float med;
+//	for (int y = 0; y < M; y++)
+//	{
+//		for (int x = 0; x < N; x++)
+//		{
+//			box[y][x] = rand() % 21;
+//			cout << box[y][x] << "\t";
+//			sum += box[y][x];
+//			if (box[y][x] > max && box[0][0]) max = box[y][x], min = box[y][x];
+//			else if (box[y][x] > max) max = box[y][x];
+//			else if (box[y][x] < min) min = box[y][x];
+//		}
+//		cout << endl;
+//	}
+//	med = float(sum) / M * N;
+//	cout << "Total sum = " << sum << endl;
+//	cout << "Medium ariphmetic = " << med << endl;
+//	cout << "MAX = " << max << endl;
+//	cout << "MIN = " << min << endl;
+//}
+
+
+//2. Дан двумерный массив размерностью M х M, заполненный случайными числами из диапазона от 0 до 20.
+//Определить сумму элементов, расположенных на главной диагонали, а также сумму элементов, 
+//расположенных на побочной диагонали.
+
 #include <iostream>
-#include <algorithm>
 #include <ctime>
+#include <algorithm>
+#include <Windows.h>
 using namespace std;
 int main()
 {
+	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 	srand(time(NULL));
-	const int M = 15;
-	const int N = 8;
-	int box[M][N];
-	int max = 0;
-	int min = 0;
+	const int H = 8;
+	const int L = 8;
+	int plane[H][L];
 	int sum = 0;
-	float med;
-	for (int y = 0; y < M; y++)
+	for (int y = 0; y < H; y++)
 	{
-		for (int x = 0; x < N; x++)
-		{
-			box[y][x] = rand() % 21;
-			cout << box[y][x] << "\t";
-			sum += box[y][x];
-			if (box[y][x] > max && box[0][0]) max = box[y][x], min = box[y][x];
-			else if (box[y][x] > max) max = box[y][x];
-			else if (box[y][x] < min) min = box[y][x];
+		
+		for (int x = 0; x < L; x++)
+		{			
+			plane[y][x] = rand() % 21;
+			if (y == x)
+			{
+				sum += plane[y][x];
+				SetConsoleTextAttribute(h, 7);//white letters
+				cout << plane[y][x] << "\t";
+			}
+			else
+			{
+				SetConsoleTextAttribute(h, 0);//black letters
+				cout << plane[y][x] << "\t";
+			}
 		}
-		cout << endl;
+		cout << "\n\n";
 	}
-	med = float(sum) / M * N;
-	cout << "Total sum = " << sum << endl;
-	cout << "Medium ariphmetic = " << med << endl;
-	cout << "MAX = " << max << endl;
-	cout << "MIN = " << min << endl;
+	SetConsoleTextAttribute(h, 9);
+	cout << "Sum of main diagonal = " << sum;
+	SetConsoleTextAttribute(h, 7);
 }
 
-
-//2. Дан двумерный массив размерностью M х M, заполненный случайными числами из диапазона от 0 до 20. Определить сумму элементов, расположенных на главной диагонали, а также сумму элементов, расположенных на побочной диагонали.
 //3. Дан двумерный массив размерностью M х N, заполненный случайными числами из диапазона от - 10 до 10. Определить количество положительных, отрицательных и нулевых элементов.
 //4. Дан двумерный массив размерностью M х N, заполненный случайными числами из диапазона от 0 до 20. Определить сумму по каждой строке и по каждому столбцу массива.
 //5. Заполнить массив M x N двузначными числами так, чтобы первая цифра указывала  номер строки, а вторая – номер столбца.
