@@ -81,40 +81,84 @@
 //3. Дан двумерный массив размерностью M х N, заполненный случайными числами из диапазона от - 10 до 10.
 //  Определить количество положительных, отрицательных и нулевых элементов.
 
+//#include <iostream>
+//#include <Windows.h>
+//#include <algorithm>
+//#include <ctime>
+//using namespace std;
+//int main()
+//{
+//	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
+//	srand(time(NULL));
+//	const int M = 8;
+//	const int N = 10;
+//	int box[M][N];
+//	int pos = 0;
+//	int zero = 0;
+//	int neg = 0;
+//	for (int y = 0; y < M; y++)
+//	{
+//		for (int x = 0; x < N; x++)
+//		{
+//			box[y][x] = rand() % 21 - 10;
+//			if (box[y][x] > 0) pos++, SetConsoleTextAttribute(h, 2), cout << box[y][x] << "\t";
+//			else if (box[y][x] < 0) neg++, SetConsoleTextAttribute(h, 9), cout << box[y][x] << "\t";//blue letters;
+//			else if (box[y][x] == 0) zero++, SetConsoleTextAttribute(h, 5), cout << box[y][x] << "\t";
+//		}
+//		cout << endl;
+//	}
+//	SetConsoleTextAttribute(h, 7);
+//	cout << "Positive number - " << pos << endl;
+//	cout << "Nagative numbers - " << neg << endl;
+//	cout << "Zeros - " << zero << endl;
+//}
+
+//4. Дан двумерный массив размерностью M х N, заполненный случайными числами из диапазона от 0 до 20.
+//  Определить сумму по каждой строке и по каждому столбцу массива.
+
 #include <iostream>
-#include <Windows.h>
 #include <algorithm>
 #include <ctime>
 using namespace std;
 int main()
 {
-	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
-	srand(time(NULL));
+	//srand(time(NULL));
 	const int M = 8;
 	const int N = 10;
 	int box[M][N];
-	int pos = 0;
-	int zero = 0;
-	int neg = 0;
+	int sum = 0;
 	for (int y = 0; y < M; y++)
 	{
 		for (int x = 0; x < N; x++)
 		{
-			box[y][x] = rand() % 21 - 10;
-			if (box[y][x] > 0) pos++, SetConsoleTextAttribute(h, 2), cout << box[y][x] << "\t";
-			else if (box[y][x] < 0) neg++, SetConsoleTextAttribute(h, 9), cout << box[y][x] << "\t";//blue letters;
-			else if (box[y][x] == 0) zero++, SetConsoleTextAttribute(h, 5), cout << box[y][x] << "\t";
+			box[y][x] = rand() % 21;
+			cout << box[y][x] << "\t";
 		}
-		cout << endl;
+		cout << "\n";
 	}
-	SetConsoleTextAttribute(h, 7);
-	cout << "Positive number - " << pos << endl;
-	cout << "Nagative numbers - " << neg << endl;
-	cout << "Zeros - " << zero << endl;
-
+	cout << "\tSum of Rows\n";
+	for (int y = 0; y < N; y++)
+	{
+		sum = 0;
+		for (int x = 0; x < M; x++)
+		{
+			sum += box[x][y];
+		}
+		cout << sum << "\t";
+	}
+	cout << "\n\tSum of Lines\n";
+	for (int y = 0; y < M; y++)
+	{
+		sum = 0;
+		for (int x = 0; x < N; x++)
+		{
+			sum += box[y][x];
+		}
+		cout << sum << "\n";
+	}
+	cout << endl;
 }
 
-//4. Дан двумерный массив размерностью M х N, заполненный случайными числами из диапазона от 0 до 20. Определить сумму по каждой строке и по каждому столбцу массива.
 //5. Заполнить массив M x N двузначными числами так, чтобы первая цифра указывала  номер строки, а вторая – номер столбца.
 //6. В двумерном массиве размерности M x N поменять местами чётные строки с нечётными.
 //7. Дан двумерный массив размерностью M x N, заполненный случайными числами из диапазона от - 100 до 100. Определить сумму элементов массива, расположенных между минимальным и максимальным элементами.
