@@ -222,30 +222,31 @@
 //11. Заполнить массив M x N следующим образом :
 
 #include <iostream>
+#include <algorithm>
 using namespace std;
 int main()
 {
 	const int N = 6;
-	const int M = 5;
+	const int M = 6;
 	int box[N][M];
 	int j = 0;
-	int i = 0;
+		for (int y = 0; y < N; y++)
+	{
+		for (int x = 0; x < M; x++)
+		{
+			if (y % 2 == 0) j++, box[y][x] = j;
+			else if (y % 2 != 0) j++, box[y][M - 1 - x] = j;
+		}
+	}
 	for (int y = 0; y < N; y++)
 	{
 		for (int x = 0; x < M; x++)
 		{
-			i = 4;
-			if (y % 2 == 0) j++, box[y][x] = j;
-			else if (y % 2 != 0) j++, box[y][i - x] = j;
-			else
-			{
-				box[y][x] = j;
-			}
-			
 			cout << box[y][x] << "\t";
 		}
 		cout << "\n";
 	}
+	
 }
 
 //12. Заполнить массив M x N следующим образом :
