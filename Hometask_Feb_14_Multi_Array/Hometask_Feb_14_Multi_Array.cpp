@@ -217,23 +217,59 @@
 //	}
 //}
 
+//#include <iostream>
+//#include <algorithm>
+//using namespace std;
+//int main()
+//{
+//	const int M = 6;
+//	const int N = 7;
+//	int box[M][N];
+//	int j = 0;
+//	for (int y = 0; y < M; y++)
+//	{
+//		for (int x = 0; x < N; x++)
+//		{
+//			if (y % 2 != 0) j++ , box[y - 1][x] = j;
+//			else if (y % 2 == 0) j++, box[y + 1][x] = j;
+//		}
+//	}
+//	for (int y = 0; y < M; y++)
+//	{
+//		for (int x = 0; x < N; x++)
+//		{
+//			cout << box[y][x] << "\t";
+//		}
+//		cout << "\n";
+//	}
+//}
+
+//7. Дан двумерный массив размерностью M x N, заполненный случайными числами из диапазона от - 100 до 100.
+//  Определить сумму элементов массива, расположенных между минимальным и максимальным элементами.
+
 #include <iostream>
+#include <ctime>
 #include <algorithm>
 using namespace std;
 int main()
 {
-	const int M = 6;
+	srand(time(NULL));
+	const int M = 8;
 	const int N = 7;
 	int box[M][N];
 	int j = 0;
+	int min = 0;
+	int max = 0;
+	int sum = 0;
 	for (int y = 0; y < M; y++)
 	{
 		for (int x = 0; x < N; x++)
 		{
-			if (y % 2 != 0) j++ , box[y - 1][x] = j;
-			else if (y % 2 == 0) j++, box[y + 1][x] = j;
+			box[y][x] = rand() % 101;
+		    if (y == 0 && x == 0) min = box[y][x], max = box[y][x];
 		}
 	}
+	cout << "\nLooking for min and max\n";
 	for (int y = 0; y < M; y++)
 	{
 		for (int x = 0; x < N; x++)
@@ -242,10 +278,32 @@ int main()
 		}
 		cout << "\n";
 	}
+	for (int y = 0; y < M; y++)
+	{
+		for (int x = 0; x < N; x++)
+		{
+			if (min > box[y][x]) min = box[y][x];
+			if (max < box[y][x]) max = box[y][x];
+		}
+	}
+	j = 0;
+	for (int y = 0; y < M; y++)
+	{
+		for (int x = 0; x < N; x++)
+		{
+			if (min == box[y][x] && j == 0 &&  sum == 0 || max == box[y][x] && j == 0 && sum == 0) j++, sum += box[y][x];
+			else if (min == box[y][x] && j != 0 || max == box[y][x] && j != 0)
+			{
+				sum += box[y][x];
+				j=0;
+			}
+			else if (j > 0) sum += box[y][x];
+		}
+	}
+	cout << "\nMinimum number - " << min << "\n";
+	cout << "Maximum number - " << max << "\n";
+	cout << "Total - " << sum << "\n";
 }
-
-//7. Дан двумерный массив размерностью M x N, заполненный случайными числами из диапазона от - 100 до 100.
-//  Определить сумму элементов массива, расположенных между минимальным и максимальным элементами.
 
 
 //8. Заполнить квадратную матрицу размером M x N по спирали.Число 1 ставится в центр матрицы, а затем массив
@@ -329,7 +387,33 @@ int main()
 //}
 
 //12. Заполнить массив M x N следующим образом :
-//
+  
+//#include <iostream>
+//#include <algorithm>
+//using namespace std;
+//int main()
+//{
+//	const int M = 6;
+//	const int N = 10;
+//	int box[M][N];
+//	int j = 0;
+//	for (int y = 0; y < M; y++)
+//	{
+//		for (int x = 0; x < N; x++)
+//		{
+//			if (y == x) j++, box[x][y] = j;
+//		}
+//	}
+//	for (int y = 0; y < M; y++)
+//	{
+//		for (int x = 0; x < N; x++)
+//		{
+//			cout << box[y][x] << "\t";
+//		}
+//		cout << "\n";
+//	}
+//}
+
 //13. Заполнить трёхмерный массив N x N x N нулями.В получившийся куб вписать шар, состоящий из единиц.После чего, разрезать куб на N слоёв, и показать каждый слой в виде двумерного массива N x N на экране консоли.
 //14. Реализовать преобразование двумерного массива в одномерный, и наоборот.
 //15. Создать массив размерностью M x N, заполненный случайными числами.Вывести на экран  строку, для которой среднее арифметическое элементов максимально отличается от среднего арифметического значения для всех элементов массива.
