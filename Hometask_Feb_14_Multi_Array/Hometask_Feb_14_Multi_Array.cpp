@@ -247,92 +247,191 @@
 //7. Дан двумерный массив размерностью M x N, заполненный случайными числами из диапазона от - 100 до 100.
 //  Определить сумму элементов массива, расположенных между минимальным и максимальным элементами.
 
-#include <iostream>
-#include <ctime>
-#include <algorithm>
-using namespace std;
-int main()
-{
-	srand(time(NULL));
-	const int M = 8;
-	const int N = 7;
-	int box[M][N];
-	int j = 0;
-	int min = 0;
-	int max = 0;
-	int sum = 0;
-	for (int y = 0; y < M; y++)
-	{
-		for (int x = 0; x < N; x++)
-		{
-			box[y][x] = rand() % 101;
-		    if (y == 0 && x == 0) min = box[y][x], max = box[y][x];
-		}
-	}
-	cout << "\nLooking for min and max\n";
-	for (int y = 0; y < M; y++)
-	{
-		for (int x = 0; x < N; x++)
-		{
-			cout << box[y][x] << "\t";
-		}
-		cout << "\n";
-	}
-	for (int y = 0; y < M; y++)
-	{
-		for (int x = 0; x < N; x++)
-		{
-			if (min > box[y][x]) min = box[y][x];
-			if (max < box[y][x]) max = box[y][x];
-		}
-	}
-	j = 0;
-	for (int y = 0; y < M; y++)
-	{
-		for (int x = 0; x < N; x++)
-		{
-			if (min == box[y][x] && j == 0 &&  sum == 0 || max == box[y][x] && j == 0 && sum == 0) j++, sum += box[y][x];
-			else if (min == box[y][x] && j != 0 || max == box[y][x] && j != 0)
-			{
-				sum += box[y][x];
-				j=0;
-			}
-			else if (j > 0) sum += box[y][x];
-		}
-	}
-	cout << "\nMinimum number - " << min << "\n";
-	cout << "Maximum number - " << max << "\n";
-	cout << "Total - " << sum << "\n";
-}
+//#include <iostream>
+//#include <ctime>
+//#include <algorithm>
+//using namespace std;
+//int main()
+//{
+//	srand(time(NULL));
+//	const int M = 8;
+//	const int N = 7;
+//	int box[M][N];
+//	int j = 0;
+//	int min = 0;
+//	int max = 0;
+//	int sum = 0;
+//	for (int y = 0; y < M; y++)
+//	{
+//		for (int x = 0; x < N; x++)
+//		{
+//			box[y][x] = rand() % 101;
+//		    if (y == 0 && x == 0) min = box[y][x], max = box[y][x];
+//		}
+//	}
+//	cout << "\nLooking for min and max\n";
+//	for (int y = 0; y < M; y++)
+//	{
+//		for (int x = 0; x < N; x++)
+//		{
+//			cout << box[y][x] << "\t";
+//		}
+//		cout << "\n";
+//	}
+//	for (int y = 0; y < M; y++)
+//	{
+//		for (int x = 0; x < N; x++)
+//		{
+//			if (min > box[y][x]) min = box[y][x];
+//			if (max < box[y][x]) max = box[y][x];
+//		}
+//	}
+//	j = 0;
+//	for (int y = 0; y < M; y++)
+//	{
+//		for (int x = 0; x < N; x++)
+//		{
+//			if (min == box[y][x] && j == 0 &&  sum == 0 || max == box[y][x] && j == 0 && sum == 0) j++, sum += box[y][x];
+//			else if (min == box[y][x] && j != 0 || max == box[y][x] && j != 0)
+//			{
+//				sum += box[y][x];
+//				j=0;
+//			}
+//			else if (j > 0) sum += box[y][x];
+//		}
+//	}
+//	cout << "\nMinimum number - " << min << "\n";
+//	cout << "Maximum number - " << max << "\n";
+//	cout << "Total - " << sum << "\n";
+//}
 
 
 //8. Заполнить квадратную матрицу размером M x N по спирали.Число 1 ставится в центр матрицы, а затем массив
 //  заполняется по спирали против часовой стрелки значениями по возрастанию.
 
+#include <iostream>
+using namespace std;
+int main() 
+{
+	const int n = 5, m = 7;
+	int a[n + 2][m + 2];
+
+	for (int i = 0; i <= n + 1; i++) 
+	{
+		for (int j = 0; j <= m + 1; j++) 
+		{
+			a[i][j] = -1;
+		}
+	}
+	for (int i = 1; i <= n; i++)
+	{
+		for (int j = 1; j <= m; j++)
+		{
+			a[i][j] = 0;
+		}
+	}
+	int num = 0, row = 1, col = 0;
+	num = n * m + 1;
+	while (num > 1)
+	{
+		while (a[row][col + 1] == 0)
+		{
+			col++;
+			num--;
+			a[row][col] = num;
+		}
+		while (a[row + 1][col] == 0) {
+			row++;
+			num--;
+			a[row][col] = num;
+		}
+		while (a[row][col - 1] == 0) {
+			col--;
+			num--;
+			a[row][col] = num;
+		}
+		while (a[row - 1][col] == 0) {
+			row--;
+			num--;
+			a[row][col] = num;
+		}
+	}
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= m; j++) {
+			if (a[i][j] % 10 == a[i][j]) cout << "   ";
+			else if (a[i][j] % 100 == a[i][j]) cout << "  ";
+			else if (a[i][j] % 1000 == a[i][j]) cout << " ";
+			cout << a[i][j];
+		}
+		cout << endl;
+	}
+	return 0;
+}
+
+//9. То же самое, только число 1 ставится в угловой(например, верхний левый) элемент, и спираль закручивается к 
+// центру матрицы.
+
 //#include <iostream>
-//#include <algorithm>
 //using namespace std;
-//int main()
-//{
-//	const int M = 5;
-//	const int N = 5;
-//	int spi[M][N];
-//	int j = 0;
-//	j = M * N + 1;
-//	for (int y = 0; y < M; y++)
-//	{
-//		for (int x = 0; x < N; x++)
-//		{
-//			if (y == M / 2 && x == N / 2) j--, spi[M / 2][N / 2] = j;
-//			//else if (y == 0) j--, spi[y][x] = j;
-//			//else if (x == N - 1) j--, spi[y][N-1] = j;
-//			//else if (y == M - 1 - x) j--, spi[y][x] = j;
-//			//else if (x == 0) j--, spi[y][x] = j;
-//		}
-//	}
+//int main() {
+//    const int n = 7, m = 7;
+//    int a[n + 2][m + 2];
+//    for (int i = 0; i <= n + 1; i++) 
+//    {
+//        for (int j = 0; j <= m + 1; j++)
+//        {
+//            a[i][j] = -1;
+//        }
+//    }
+//    for (int i = 1; i <= n; i++) 
+//    {
+//        for (int j = 1; j <= m; j++) 
+//        {
+//            a[i][j] = 0;
+//        }
+//    }
+//    int num = 0, row = 1, col = 0;
+//    while (num < n*m) 
+//    {
+//        while (a[row][col + 1] == 0)
+//        {
+//            col++;
+//            num++;
+//            a[row][col] = num;
+//        }
+//        while (a[row + 1][col] == 0) 
+//        {
+//            row++;
+//            num++;
+//            a[row][col] = num;
+//        }
+//        while (a[row][col - 1] == 0) 
+//        {
+//            col--;
+//            num++;
+//            a[row][col] = num;
+//        }
+//        while (a[row - 1][col] == 0) 
+//        {
+//            row--;
+//            num++;
+//            a[row][col] = num;
+//        }
+//    }
+//    for (int i = 1; i <= n; i++) 
+//    {
+//        for (int j = 1; j <= m; j++) 
+//        {
+//            if (a[i][j] % 10 == a[i][j]) cout << "   ";
+//            else if (a[i][j] % 100 == a[i][j]) cout << "  ";
+//            else if (a[i][j] % 1000 == a[i][j]) cout << " ";
+//            cout << a[i][j];
+//        }
+//        cout << endl;
+//    }
+//    return 0;
 //}
 
-//9. То же самое, только число 1 ставится в угловой(например, верхний левый) элемент, и спираль закручивается к центру матрицы.
 //10. Заполнить массив M x N следующим образом :
 
 //#include <iostream>
